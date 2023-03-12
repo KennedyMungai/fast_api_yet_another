@@ -1,0 +1,4 @@
+requirements.txt
+fast_api_yet_another/
+__pycache__/
+.env
