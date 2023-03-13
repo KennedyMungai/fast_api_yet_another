@@ -13,3 +13,12 @@ class UserBase(BaseModel):
     email: str
     name: str
     phone_number: str
+
+
+class UserRequest(UserBase):
+    """Created the UserRequest class 
+
+    Args:
+        UserBase (Class): The parent class
+    """
+    password: str
