@@ -37,7 +37,7 @@ async def register_user(_user: UserRequest, _db: orm.Session = Depends(get_db)):
 @app.post("/api/v1/login")
 async def login_user(
     form_data: OAuth2PasswordRequestForm = Depends(),
-    db: orm.Session = Depends(get_db)
+    _db: orm.Session = Depends(get_db)
 ):
     """Defined the function for the login endpoint
 
@@ -51,7 +51,7 @@ async def login_user(
     Returns:
         Token: Creates and returns a token for the user
     """
-    db_user = await login(form_data.username, form_data.password, db)
+    db_user = await login(form_data.username, form_data.password, _db)
 
     if not db_user:
         raise HTTPException(
