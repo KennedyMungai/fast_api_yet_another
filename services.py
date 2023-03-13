@@ -133,7 +133,7 @@ async def login(_email: str, _password: str, _db: orm.Session):
 
 async def current_user(
     _db: orm.Session = Depends(get_db),
-    token: str = Depends()
+    token: str = Depends(oauth2schema)
 ):
     """A function to get the current user
 
