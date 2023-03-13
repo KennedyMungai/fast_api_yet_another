@@ -45,6 +45,18 @@ async def get_user_by_email(_email: str, _db: orm.Session) -> bool:
 
 
 async def create_user(_user: UserRequest, _db=orm.Session):
+    """Created a user in the database
+
+    Args:
+        _user (UserRequest): The template of the user data coming in
+        _db (_type_, optional): The database session. Defaults to orm.Session.
+
+    Raises:
+        HTTPException: Raises a bad request error whenever an email is found to be invalid
+
+    Returns:
+        User: Returns the user object that has been added to the database
+    """
     try:
         is_valid = validate_email(_user.email)
         email = is_valid.email
