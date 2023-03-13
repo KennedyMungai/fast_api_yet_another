@@ -18,5 +18,6 @@ class UserModel(base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     name = Column(String)
+    phone_number = Column(String)
     password_hash = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow())
