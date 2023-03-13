@@ -2,6 +2,9 @@
 from database import base, engine, session_local
 from models import UserModel
 from sqlalchemy import orm
+from schemas import UserRequest
+from email_validator import validate_email, EmailNotValidError
+from fastapi import HTTPException, status
 
 
 def create_db():
@@ -38,3 +41,12 @@ async def get_user_by_email(_email: str, _db: orm.Session) -> bool:
         bool: Returns a bool of whether the email is in the database or not
     """
     return _db.query(UserModel).filter(UserModel.email == _email).first()
+
+
+async def create_user(_user: UserRequest, _db=orm.Session):
+    try:
+        is_valid = validate_email(_user.email)
+        email = is_valid.email
+    except EmailNotValidError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="Provide valid email")
