@@ -1,11 +1,20 @@
 """A script meant to contain all the services logic"""
+from os.environ import get
+
+from dotenv import find_dotenv, load_dotenv
+from email_validator import EmailNotValidError, validate_email
+from fastapi import HTTPException, status
+from jwt import encode
+from passlib import hash
+from sqlalchemy import orm
+
 from database import base, engine, session_local
 from models import UserModel
-from sqlalchemy import orm
-from schemas import UserRequest
-from email_validator import validate_email, EmailNotValidError
-from fastapi import HTTPException, status
-from passlib import hash
+from schemas import UserBase, UserRequest
+
+load_dotenv(find_dotenv())
+
+jwt_secret = get("JWT_SECRET")
 
 
 def create_db():
@@ -77,3 +86,24 @@ async def create_user(_user: UserRequest, _db=orm.Session):
     _db.refresh(user_object)
 
     return user_object
+
+
+async def create_token(user: UserModel) -> dict:
+    """Created the create_token function
+
+    Args:
+        user (UserModel): The template of the user
+
+    Returns:
+        dict: A dictionary of the access_token and the token type
+    """
+    # Convert user model to user schema
+    user_schema = UserBase.from_orm(user)
+    # Converting the object to a dictionary
+    user_dict = user_schema.dict()
+
+    del user_dict["created_at"]
+
+    token = encode(user_dict, jwt_secret)
+
+    return dict(access_token=token, token_type="bearer")
