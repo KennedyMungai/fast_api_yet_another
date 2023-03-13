@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 @app.post("/api/v1/users")
-async def register_user(_user: UserRequest, _db: orm.Session = Depends(get_db())):
+async def register_user(_user: UserRequest, _db: orm.Session = Depends(get_db)):
     """Created the register user endpoint
 
     Args:
