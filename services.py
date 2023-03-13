@@ -178,3 +178,18 @@ async def create_post(_user: UserResponse, _db: orm.Session, _post: PostRequest)
     _db.refresh(post)
 
     return PostResponse.from_orm(post)
+
+
+async def get_posts_by_user(_user: UserResponse, _db: orm.Session) -> list:
+    """A function that retrieves posts by the users that made them
+
+    Args:
+        _user (UserResponse): The user
+        _db (orm.Session): The database session
+
+    Returns:
+        list: A list of the posts
+    """
+    posts = _db.query(PostModel).filter_by(user_id == _user.id)
+
+    return list(map(PostResponse.from_orm, posts))
