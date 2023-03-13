@@ -9,7 +9,7 @@ from services import (
     create_user,
     create_token,
     login,
-    current_user
+    current_user as _current_user
 )
 
 app = FastAPI()
@@ -69,4 +69,5 @@ async def login_user(
 
 
 @app.get("/api/users/currentuser", response_model=UserResponse)
-async def current_user(user: UserResponse = Depends(current_user)):
+async def current_user(_user: UserResponse = Depends(_current_user)):
+    return _user
