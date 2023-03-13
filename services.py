@@ -1,5 +1,6 @@
 """A script meant to contain all the services logic"""
 from database import base, engine, session_local
+import models
 
 
 def create_db():
