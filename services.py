@@ -158,4 +158,4 @@ async def current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong credentials")
 
-    return UserResponse.from_orm(_db)
+    return UserResponse.from_orm(db_user)
