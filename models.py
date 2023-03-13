@@ -5,7 +5,7 @@ from passlib import hash
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from database import base, session_local
+from database import base
 
 
 class UserModel(base):
