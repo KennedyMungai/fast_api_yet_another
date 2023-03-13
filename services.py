@@ -10,7 +10,7 @@ from sqlalchemy import orm
 
 from database import base, engine, session_local
 from models import UserModel
-from schemas import UserBase, UserRequest
+from schemas import UserResponse, UserRequest
 
 load_dotenv(find_dotenv())
 
@@ -98,7 +98,7 @@ async def create_token(user: UserModel) -> dict:
         dict: A dictionary of the access_token and the token type
     """
     # Convert user model to user schema
-    user_schema = UserBase.from_orm(user)
+    user_schema = UserResponse.from_orm(user)
     # Converting the object to a dictionary
     user_dict = user_schema.dict()
 
