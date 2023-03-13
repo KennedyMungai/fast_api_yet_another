@@ -64,3 +64,14 @@ class PostRequest(PostBase):
         PostBase (Class): The parent class
     """
     pass
+
+
+class PostResponse(PostBase):
+    """The Template for th Post response 
+
+    Args:
+        PostBase (Class): The parent class
+    """
+    id: int
+    user_id: str
+    created_at: datetime
