@@ -5,7 +5,7 @@ from jwt import encode
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
 from fastapi import HTTPException, status
-from passlib import hash
+from passlib import hash as _hash
 from sqlalchemy import orm
 
 from database import base, engine, session_local
@@ -73,7 +73,7 @@ async def create_user(_user: UserRequest, _db=orm.Session):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="Provide valid email")
 
-    hashed_password = hash.bcrypt.hash(_user.password)
+    hashed_password = _hash.bcrypt.hash(_user.password)
 
     user_object = UserModel(
         email, _user.name,
