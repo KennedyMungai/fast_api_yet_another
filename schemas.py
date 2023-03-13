@@ -23,6 +23,10 @@ class UserRequest(UserBase):
     """
     password: str
 
+    class Config:
+        """Config for the UserRequest class"""
+        orm_mode = True
+
 
 class UserResponse(UserBase):
     """The template for the User response data
