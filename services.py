@@ -4,7 +4,7 @@ import os
 from jwt import encode, decode
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
-from fastapi import HTTPException, status, Depends
+from fastapi import HTTPException, status, Depends, Security
 from passlib import hash as _hash
 from sqlalchemy import orm
 
@@ -15,6 +15,8 @@ from schemas import UserResponse, UserRequest
 load_dotenv(find_dotenv())
 
 jwt_secret = os.environ.get("JWT_SECRET")
+
+oauth2schema = Security.OAuth2PasswordBearer("/api/v1/login")
 
 
 def create_db():
