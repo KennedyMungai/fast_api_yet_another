@@ -21,7 +21,7 @@ class UserModel(base):
     phone_number = Column(String)
     password_hash = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow())
-    posts = relationship("Post", back_populates="user")
+    posts = relationship("PostModel", back_populates="user")
 
     def password_verification(self, password: str) -> bool:
         """A simple method to compare the entered password with the stored password
@@ -49,4 +49,4 @@ class PostModel(base):
     image = Column(String)
     post_description = Column(String, index=True)
     created_at = Column(DateTime, default=datetime.utcnow())
-    user = relationship("User", back_populates="posts")
+    user = relationship("UserModel", back_populates="posts")
