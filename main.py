@@ -10,7 +10,7 @@ from services import (
     create_token,
     login,
     current_user as _current_user,
-    create_post
+    create_post as _create_post
 )
 
 app = FastAPI()
@@ -99,4 +99,4 @@ async def create_post(
     Returns:
         _type_: _description_
     """
-    return await create_post(_user, _db, _post_request)
+    return await _create_post(_user, _db, _post_request)
