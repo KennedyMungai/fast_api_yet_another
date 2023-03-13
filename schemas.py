@@ -44,3 +44,14 @@ class UserResponse(UserBase):
     class Config:
         """Config for the UserResponse class"""
         orm_mode = True
+
+
+class PostBase(BaseModel):
+    """The Post base model
+
+    Args:
+        BaseModel (Class): The parent class
+    """
+    post_title: str
+    post_description: str
+    image: str
