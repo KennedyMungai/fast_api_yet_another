@@ -22,3 +22,13 @@ class UserRequest(UserBase):
         UserBase (Class): The parent class
     """
     password: str
+
+
+class UserResponse(UserBase):
+    """The template for the User response data
+
+    Args:
+        UserBase (Class): The parent class
+    """
+    id: int
+    created_at: datetime
