@@ -5,6 +5,14 @@
     }
   ],
   "settings": {
-    "cSpell.words": ["autoflush", "dbfile", "passlib", "sessionmaker"]
+    "cSpell.words": ["autoflush", "dbfile", "passlib", "sessionmaker"],
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "driver": "SQLite",
+        "name": "fast_api_yet_another",
+        "database": "${workspaceFolder:fast_api_yet_another}/dbfile.db"
+      }
+    ]
   }
 }
