@@ -5,6 +5,7 @@ from sqlalchemy import orm
 from schemas import UserRequest
 from email_validator import validate_email, EmailNotValidError
 from fastapi import HTTPException, status
+from passlib import hash
 
 
 def create_db():
@@ -50,3 +51,17 @@ async def create_user(_user: UserRequest, _db=orm.Session):
     except EmailNotValidError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="Provide valid email")
+
+    hashed_password = hash.bcrypt.hash(_user.password)
+
+    user_object = UserModel(
+        email, _user.name,
+        _user.phone_number,
+        hashed_password
+    )
+
+    _db.add(user_object)
+    _db.commit()
+    _db.refresh(user_object)
+
+    return user_object
