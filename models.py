@@ -23,6 +23,17 @@ class UserModel(base):
     created_at = Column(DateTime, default=datetime.utcnow())
     posts = relationship("Post", back_populates="user")
 
+    def password_verification(self, password: str) -> bool:
+        """A simple method to compare the entered password with the stored password
+
+        Args:
+            password (str): The entered password string
+
+        Returns:
+            bool: Whether the two strings match
+        """
+        return hash.bcrypt.verify(password, self.password_hash)
+
 
 class PostModel(base):
     """Created the model for the Post item
