@@ -2,7 +2,7 @@
 from fastapi import Depends, FastAPI, HTTPException, security, status
 from sqlalchemy import orm
 
-from schemas import UserRequest, UserResponse
+from schemas import UserRequest
 from services import get_db, get_user_by_email, create_user, create_token
 
 app = FastAPI()
