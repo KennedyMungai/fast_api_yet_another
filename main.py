@@ -73,7 +73,8 @@ async def current_user(_user: UserResponse = Depends(_current_user)):
     """An endpoint to get the current user of the application
 
     Args:
-        _user (UserResponse, optional): The template for the User data. Defaults to Depends(_current_user).
+        _user (UserResponse, optional): The template for the User 
+                                        data. Defaults to Depends(_current_user).
 
     Returns:
         User: The user data template
