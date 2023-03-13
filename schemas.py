@@ -14,6 +14,10 @@ class UserBase(BaseModel):
     name: str
     phone_number: str
 
+    class Config:
+        """Config for the UserBase class"""
+        orm_mode = True
+
 
 class UserRequest(UserBase):
     """Created the UserRequest class 
@@ -36,3 +40,7 @@ class UserResponse(UserBase):
     """
     id: int
     created_at: datetime
+
+    class Config:
+        """Config for the UserResponse class"""
+        orm_mode = True
