@@ -35,7 +35,10 @@ async def register_user(_user: UserRequest, _db: orm.Session = Depends(get_db)):
 
 
 @app.post("/api/v1/login")
-async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: orm.Session = Depends(get_db)):
+async def login_user(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: orm.Session = Depends(get_db)
+):
     """Defined the function for the login endpoint
 
     Args:
