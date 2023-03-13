@@ -1,7 +1,7 @@
 """A script meant to contain all the services logic"""
 import os
 
-import jwt
+from jwt import encode
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
 from fastapi import HTTPException, status
@@ -104,6 +104,6 @@ async def create_token(user: UserModel) -> dict:
 
     del user_dict["created_at"]
 
-    token = jwt.encode(user_dict, jwt_secret, algorithm="HS256")
+    token = encode(user_dict, jwt_secret, algorithm="HS256")
 
     return dict(access_token=token, token_type="bearer")
