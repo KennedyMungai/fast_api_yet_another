@@ -1,5 +1,5 @@
 """A script meant to contain all the services logic"""
-from database import base, engine
+from database import base, engine, session_local
 
 
 def create_db():
@@ -11,4 +11,15 @@ def create_db():
     return base.metadata.create_all(bind=engine)
 
 
-create_db()
+def get_db():
+    """A function to create a database session
+
+    Yields:
+        Database: The database session
+    """
+    db = session_local()
+
+    try:
+        yield db
+    finally:
+        db.close()
