@@ -17,7 +17,8 @@ async def register_user(_user: UserRequest, _db: orm.Session = Depends(get_db())
         _db (orm.Session, optional): The database session. Defaults to Depends(get_db()).
 
     Raises:
-        HTTPException: A bad request exception is raised if the email address provided is found to not be valid
+        HTTPException: A bad request exception is raised if
+                        the email address provided is found to not be valid
 
     Returns:
         token: A token is created based on the db_user
