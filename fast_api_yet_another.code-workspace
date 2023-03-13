@@ -5,7 +5,13 @@
     }
   ],
   "settings": {
-    "cSpell.words": ["autoflush", "dbfile", "passlib", "sessionmaker"],
+    "cSpell.words": [
+      "autoflush",
+      "dbfile",
+      "dotenv",
+      "passlib",
+      "sessionmaker"
+    ],
     "sqltools.connections": [
       {
         "previewLimit": 50,
