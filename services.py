@@ -4,7 +4,7 @@ import os
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
 from fastapi import HTTPException, status
-from jwt import encode
+import jwt
 from passlib import hash
 from sqlalchemy import orm
 
@@ -104,6 +104,6 @@ async def create_token(user: UserModel) -> dict:
 
     del user_dict["created_at"]
 
-    token = encode(user_dict, jwt_secret)
+    token = jwt.encode(user_dict, jwt_secret)
 
     return dict(access_token=token, token_type="bearer")
