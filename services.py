@@ -9,8 +9,8 @@ from passlib import hash as _hash
 from sqlalchemy import orm
 
 from database import base, engine, session_local
-from models import UserModel
-from schemas import UserResponse, UserRequest
+from models import UserModel, PostModel
+from schemas import UserResponse, UserRequest, PostRequest, PostResponse
 
 load_dotenv(find_dotenv())
 
@@ -23,7 +23,7 @@ def create_db():
     """The database creation method
 
     Returns:
-        _type_: created the database 
+        _type_: created the database
     """
     return base.metadata.create_all(bind=engine)
 
@@ -159,3 +159,22 @@ async def current_user(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong credentials")
 
     return UserResponse.from_orm(db_user)
+
+
+async def create_post(_user: UserResponse, _db: orm.Session, _post: PostRequest):
+    """The create post service
+
+    Args:
+        _user (UserResponse): The template for the User data
+        _db (orm.Session): The database session
+        _post (PostRequest): The template for the Post data
+
+    Returns:
+        _type_: _description_
+    """
+    post = PostModel(**_post.dict(), user_id=_user.id)
+    _db.add(post)
+    _db.commit()
+    _db.refresh(post)
+
+    return PostResponse.from_orm(post)
