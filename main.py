@@ -40,7 +40,7 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: orm.S
 
     Args:
         form_data (OAuth2PasswordRequestForm, optional): Contains the email and the password. Defaults to Depends().
-        db (orm.Session, optional): The database sessoion. Defaults to Depends(get_db).
+        db (orm.Session, optional): The database session. Defaults to Depends(get_db).
 
     Raises:
         HTTPException: An unauthorized exception is raised incase of false login credentials
