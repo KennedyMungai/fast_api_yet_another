@@ -1,0 +1,1 @@
+"""The schemas script"""
