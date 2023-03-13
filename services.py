@@ -1,5 +1,5 @@
 """A script meant to contain all the services logic"""
-from os.environ import get
+import os
 
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
@@ -14,7 +14,7 @@ from schemas import UserBase, UserRequest
 
 load_dotenv(find_dotenv())
 
-jwt_secret = get("JWT_SECRET")
+jwt_secret = os.environ.get("JWT_SECRET")
 
 
 def create_db():
