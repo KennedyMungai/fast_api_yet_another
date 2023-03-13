@@ -23,3 +23,6 @@ def get_db():
         yield _db
     finally:
         _db.close()
+
+
+create_db()
