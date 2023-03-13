@@ -1,10 +1,10 @@
 """A script meant to contain all the services logic"""
 import os
 
-from jwt import encode
+from jwt import encode, decode
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends
 from passlib import hash as _hash
 from sqlalchemy import orm
 
@@ -129,3 +129,31 @@ async def login(_email: str, _password: str, _db: orm.Session):
         return False
 
     return db_user
+
+
+async def current_user(
+    _db: orm.Session = Depends(get_db),
+    token: str = Depends()
+):
+    """A function to get the current user
+
+    Args:
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+        token (str, optional): The access token for the application. Defaults to Depends().
+
+    Raises:
+        HTTPException: The unauthorized exception is raised incase of the wrong credentials
+
+    Returns:
+        _type_: _description_
+    """
+    try:
+        payload = decode(token, jwt_secret, algorithms=["HS256"])
+        # To get the user by Id and the Id is already available in the decoded user payload
+        # along with the email, phone and name
+        db_user = _db.query(UserModel).get(payload["id"])
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong credentials")
+
+    return UserResponse.from_orm(_db)
