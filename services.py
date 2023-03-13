@@ -110,7 +110,7 @@ async def create_token(user: UserModel) -> dict:
 
 
 async def login(_email: str, _password: str, _db: orm.Session):
-    """Defined the loginc function
+    """Defined the login function
 
     Args:
         _email (str): The email of the user
