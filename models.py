@@ -1,9 +1,8 @@
 """This file is going to hold all the models for the app"""
 from datetime import datetime
 
-import sqlalchemy.orm
 from passlib import hash
-from sqlalchemy import Column, DateTime, Integer, String, ForeignKey
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 
 from database import base, session_local
 
@@ -24,7 +23,7 @@ class UserModel(base):
 
 
 class PostModel(base):
-    """CReated the model for the Post item
+    """Created the model for the Post item
 
     Args:
         base (Class): The parent class
