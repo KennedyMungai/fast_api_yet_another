@@ -42,7 +42,8 @@ async def login_user(
     """Defined the function for the login endpoint
 
     Args:
-        form_data (OAuth2PasswordRequestForm, optional): Contains the email and the password. Defaults to Depends().
+        form_data (OAuth2PasswordRequestForm, optional): Contains the email 
+                                                        and the password. Defaults to Depends().
         db (orm.Session, optional): The database session. Defaults to Depends(get_db).
 
     Raises:
