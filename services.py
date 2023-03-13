@@ -107,3 +107,25 @@ async def create_token(user: UserModel) -> dict:
     token = encode(user_dict, jwt_secret, algorithm="HS256")
 
     return dict(access_token=token, token_type="bearer")
+
+
+async def login(_email: str, _password: str, _db: orm.Session):
+    """Defined the loginc function
+
+    Args:
+        _email (str): The email of the user
+        _password (str): The password of the user
+        _db (orm.Session): The database session
+
+    Returns:
+        _type_: _description_
+    """
+    db_user = await get_user_by_email(_email, _db)
+
+    if not db_user:
+        return False
+
+    if not db_user.password_verification(_password):
+        return False
+
+    return db_user
