@@ -25,7 +25,7 @@ class UserRequest(UserBase):
     Args:
         UserBase (Class): The parent class
     """
-    password: str
+    password_hash: str
 
     class Config:
         """Config for the UserRequest class"""
