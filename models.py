@@ -3,6 +3,7 @@ from datetime import datetime
 
 from passlib import hash
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 from database import base, session_local
 
@@ -20,6 +21,7 @@ class UserModel(base):
     phone_number = Column(String)
     password_hash = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow())
+    posts = relationship("Post", back_populates="user")
 
 
 class PostModel(base):
@@ -35,3 +37,4 @@ class PostModel(base):
     post_body = Column(String, index=True)
     post_description = Column(String, index=True)
     created_at = Column(DateTime, default=datetime.utcnow())
+    user = relationship("User", back_populates="posts")
