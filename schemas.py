@@ -56,6 +56,10 @@ class PostBase(BaseModel):
     post_description: str
     image: str
 
+    class Config:
+        """Config for the UserRequest class"""
+        orm_mode = True
+
 
 class PostRequest(PostBase):
     """The template for the Post Request data
@@ -64,6 +68,10 @@ class PostRequest(PostBase):
         PostBase (Class): The parent class
     """
     pass
+
+    class Config:
+        """Config for the UserRequest class"""
+        orm_mode = True
 
 
 class PostResponse(PostBase):
@@ -75,3 +83,7 @@ class PostResponse(PostBase):
     id: int
     user_id: str
     created_at: datetime
+
+    class Config:
+        """Config for the UserRequest class"""
+        orm_mode = True
