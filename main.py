@@ -2,14 +2,15 @@
 from fastapi import Depends, FastAPI, HTTPException, status, Security
 from sqlalchemy import orm
 
-from schemas import UserRequest, UserResponse
+from schemas import UserRequest, UserResponse, PostResponse, PostRequest
 from services import (
     get_db,
     get_user_by_email,
     create_user,
     create_token,
     login,
-    current_user as _current_user
+    current_user as _current_user,
+    create_post
 )
 
 app = FastAPI()
@@ -80,3 +81,22 @@ async def current_user(_user: UserResponse = Depends(_current_user)):
         User: The user data template
     """
     return _user
+
+
+@app.post("/api/v1/posts", response_model=PostResponse)
+async def create_post(
+        _post_request: PostRequest,
+        _user: UserRequest = Depends(_current_user),
+        _db: orm.Session = Depends(get_db)
+):
+    """An endpoint for creating posts
+
+    Args:
+        _post_request (PostRequest): The Post data
+        _user (UserRequest, optional): The user creating the post. Defaults to Depends(_current_user).
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Returns:
+        _type_: _description_
+    """
+    return await create_post(_user, _db, _post_request)
