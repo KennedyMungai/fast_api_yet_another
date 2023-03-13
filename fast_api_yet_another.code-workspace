@@ -5,6 +5,6 @@
     }
   ],
   "settings": {
-    "cSpell.words": ["dbfile"]
+    "cSpell.words": ["autoflush", "dbfile", "sessionmaker"]
   }
 }
