@@ -11,7 +11,7 @@
         "previewLimit": 50,
         "driver": "SQLite",
         "name": "fast_api_yet_another",
-        "database": "${workspaceFolder:fast_api_yet_another}/dbfile.db"
+        "database": "\\\\wsl.localhost\\Ubuntu-22.04\\home\\kennedymungai\\python\\fast_api_yet_another\\dbfile.db"
       }
     ]
   }
