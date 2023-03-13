@@ -1,5 +1,5 @@
 """The entry point to the program"""
-from fastapi import Depends, FastAPI, HTTPException, security, status
+from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy import orm
 
 from schemas import UserRequest
