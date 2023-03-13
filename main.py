@@ -2,8 +2,15 @@
 from fastapi import Depends, FastAPI, HTTPException, status, Security
 from sqlalchemy import orm
 
-from schemas import UserRequest
-from services import get_db, get_user_by_email, create_user, create_token, login
+from schemas import UserRequest, UserResponse
+from services import (
+    get_db,
+    get_user_by_email,
+    create_user,
+    create_token,
+    login,
+    current_user
+)
 
 app = FastAPI()
 
@@ -59,3 +66,7 @@ async def login_user(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong login credentials")
 
     return await create_token(db_user)
+
+
+@app.get("/api/users/currentuser", response_model=UserResponse)
+async def current_user(user: UserResponse = Depends(current_user)):
