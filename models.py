@@ -1,7 +1,7 @@
 """This file is going to hold all the models for the app"""
 from datetime import datetime
 
-from passlib import hash
+from passlib import hash as _hash
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -32,7 +32,7 @@ class UserModel(base):
         Returns:
             bool: Whether the two strings match
         """
-        return hash.bcrypt.verify(password, self.password_hash)
+        return _hash.bcrypt.verify(password, self.password_hash)
 
 
 class PostModel(base):
