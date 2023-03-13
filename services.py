@@ -71,7 +71,7 @@ async def create_user(_user: UserRequest, _db=orm.Session):
         email = is_valid.email
     except EmailNotValidError as _e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail=f"{_e}+ Provide valid email")
+                            detail=f"{_e} Please provide valid email")
 
     hashed_password = _hash.bcrypt.hash(_user.password)
 
