@@ -13,6 +13,7 @@ from services import get_post_detail as _get_post_by_detail
 from services import get_posts_by_user as _get_posts_by_user
 from services import get_user_by_email, login
 from services import delete_post as _delete_post
+from services import update_post as _update_post
 
 app = FastAPI()
 
@@ -152,3 +153,20 @@ async def delete_post(post_id: int, _db: orm.Session = Depends(get_db), _user: U
     await _delete_post(post, _db)
 
     return "Post deleted"
+
+
+@app.put("/api/v1/posts/{post_id}", response_model=PostResponse)
+async def update_post(post_id: int, _post_request: PostRequest, _db: orm.Session = Depends(get_db)):
+    """The update post endpoint
+
+    Args:
+        post_id (int): The id of teh post
+        _post_request (PostRequest): The template for te post request data
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Returns:
+        _type_: _description_
+    """
+    db_post = await _get_post_by_detail(post_id, _db)
+
+    return await _update_post(post_request, db_post, _db)
