@@ -245,3 +245,17 @@ async def update_post(_post_request: PostRequest, _post: PostModel, _db: orm.Ses
     _db.refresh(_post)
 
     return PostResponse.from_orm(_post)
+
+
+async def get_posts_by_all_users(_db: orm.Session) -> list:
+    """The service to get all the posts in the database
+
+    Args:
+        _db (orm.Session): The database session
+
+    Returns:
+        list: A list containing all the posts in the database
+    """
+    posts = _db.query(PostModel)
+
+    return list(map(PostResponse.from_orm, posts))
