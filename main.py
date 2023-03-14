@@ -15,6 +15,7 @@ from services import get_user_by_email, login
 from services import delete_post as _delete_post
 from services import update_post as _update_post
 from services import get_posts_by_all_users as _get_posts_by_all_users
+from services import get_user_details as _get_user_details
 
 app = FastAPI()
 
