@@ -212,3 +212,14 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
                             detail=f"Post with id {post_id} not found")
 
     return PostResponse.from_orm(db_post)
+
+
+async def delete_post(_post: PostModel, _db: orm.Session):
+    """Service for deleting a post
+
+    Args:
+        _post (PostModel): The post
+        _db (orm.Session): The database connnection
+    """
+    _db.delete(_post)
+    _db.commit()
