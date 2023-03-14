@@ -1,19 +1,18 @@
 """The entry point to the program"""
-from fastapi import Depends, FastAPI, HTTPException, status, Security
-from sqlalchemy import orm
 from typing import List
-from schemas import UserRequest, UserResponse, PostResponse, PostRequest
-from services import (
-    get_db,
-    get_user_by_email,
-    create_user,
-    create_token,
-    login,
-    current_user as _current_user,
-    create_post as _create_post,
-    get_posts_by_user as _get_posts_by_user,
-    get_post_detail as _get_post_by_detail
-)
+
+from fastapi import Depends, FastAPI, HTTPException, Security, status
+from sqlalchemy import orm
+
+from schemas import PostRequest, PostResponse, UserRequest, UserResponse
+from services import create_post as _create_post
+from services import create_token, create_user
+from services import current_user as _current_user
+from services import get_db
+from services import get_post_detail as _get_post_by_detail
+from services import get_posts_by_user as _get_posts_by_user
+from services import get_user_by_email, login
+from services import delete_post as _delete_post
 
 app = FastAPI()
 
@@ -135,3 +134,21 @@ async def get_post_detail(post_id: int, _db: orm.Session = Depends(get_db)):
     post = await _get_post_by_detail(post_id, _db)
 
     return post
+
+
+@app.delete("/api/v1/posts/{post_id}")
+async def delete_post(post_id: int, _db: orm.Session = Depends(get_db), _user: UserRequest = Depends(current_user)) -> str:
+    """The endpoint to delete a post
+
+    Args:
+        post_id (int): The id of the post
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+        _user (UserRequest, optional): The User. Defaults to Depends(current_user).
+
+    Returns:
+        str: A message to show successful deletion of the post
+    """
+    post = await _get_post_by_detail(post_id, _db)
+    await _delete_post(post, _db)
+
+    return "Post deleted"
