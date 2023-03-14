@@ -209,9 +209,10 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
 
     if not db_post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Post with id {post_id} not found")
+                            detail=f"Post with id {_post_id} not found")
 
-    return PostResponse.from_orm(db_post)
+    # return PostResponse.from_orm(db_post)
+    return db_post
 
 
 async def delete_post(_post: PostModel, _db: orm.Session):
