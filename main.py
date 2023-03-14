@@ -156,7 +156,11 @@ async def get_post_detail(post_id: int, _db: orm.Session = Depends(get_db)):
 
 
 @app.delete("/api/v1/posts/{post_id}")
-async def delete_post(post_id: int, _db: orm.Session = Depends(get_db), _user: UserRequest = Depends(current_user)) -> str:
+async def delete_post(
+    post_id: int,
+    _db: orm.Session = Depends(get_db),
+    _user: UserRequest = Depends(current_user)
+) -> str:
     """The endpoint to delete a post
 
     Args:
