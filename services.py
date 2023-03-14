@@ -203,7 +203,7 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
         _db (orm.Session): The database connection
 
     Returns:
-        _type_: Th actual post details
+        _type_: The actual post details
     """
     db_post = _db.query(PostModel).filter(PostModel.id == _post_id).first()
 
@@ -220,7 +220,28 @@ async def delete_post(_post: PostModel, _db: orm.Session):
 
     Args:
         _post (PostModel): The post
-        _db (orm.Session): The database connnection
+        _db (orm.Session): The database connection
     """
     _db.delete(_post)
     _db.commit()
+
+
+async def update_post(_post_request: PostRequest, _post: PostModel, _db: orm.Session):
+    """The update post service
+
+    Args:
+        _post_request (PostRequest): The post
+        _post (PostModel): The post 
+        _db (orm.Session): The database session
+
+    Returns:
+        _type_: _description_
+    """
+    _post.post_title = _post_request.post_title
+    _post.post_description = _post_request.post_description
+    _post.image = _post_request.image
+
+    _db.commit()
+    _db.refresh(_post)
+
+    return PostResponse.from_orm(_post)
