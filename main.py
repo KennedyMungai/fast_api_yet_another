@@ -191,5 +191,14 @@ async def update_post(post_id: int, _post_request: PostRequest, _db: orm.Session
 
 
 @app.get("/api/v1/users/{user_id}", response_model=UserResponse)
-async def get_user_data(user_id: int, _db: orm.Session = Depends(get_db)):
-    pass
+async def get_user_details(_user_id: int, _db: orm.Session = Depends(get_db)):
+    """An endpoint to get user details
+
+    Args:
+        _user_id (int): The id of the user
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Returns:
+        _type_: _description_
+    """
+    return await _get_user_details(_user_id, _db)
