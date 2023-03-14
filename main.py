@@ -11,7 +11,8 @@ from services import (
     login,
     current_user as _current_user,
     create_post as _create_post,
-    get_posts_by_user as _get_posts_by_user
+    get_posts_by_user as _get_posts_by_user,
+    get_post_detail as _get_post_by_detail
 )
 
 app = FastAPI()
@@ -115,3 +116,26 @@ async def get_posts_by_user(_user: UserRequest, _db: orm.Session = Depends(get_d
         list: A list of all the posts by a specific user
     """
     return await _get_posts_by_user(_user, _db)
+
+
+@app.get("/api/posts/{post_id}", response_model=PostResponse)
+async def get_post_detail(post_id: int, _db: orm.Session = Depends(get_db)):
+    """Defined the endpoint to get the details of a specific post
+
+    Args:
+        post_id (int): The id of the post
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Raises:
+        HTTPException: A not found exception is raised when the post is not found
+
+    Returns:
+        _type_: The post is returned
+    """
+    post = await _get_post_by_detail(post_id, _db)
+
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Post with id {post_id} not found")
+
+    return post
