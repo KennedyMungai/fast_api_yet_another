@@ -72,7 +72,7 @@ async def login_user(
     return await create_token(db_user)
 
 
-@app.get("/api/users/currentuser", response_model=UserResponse)
+@app.get("/api/v1/users/currentuser", response_model=UserResponse)
 async def current_user(_user: UserResponse = Depends(_current_user)):
     """An endpoint to get the current user of the application
 
@@ -135,7 +135,7 @@ async def get_posts_by_all_users(_db: orm.Session = Depends(get_db)) -> list:
     return await _get_posts_by_all_users(_db)
 
 
-@app.get("/api/posts/{post_id}", response_model=PostResponse)
+@app.get("/api/v1/posts/{post_id}", response_model=PostResponse)
 async def get_post_detail(post_id: int, _db: orm.Session = Depends(get_db)):
     """Defined the endpoint to get the details of a specific post
 
@@ -187,3 +187,8 @@ async def update_post(post_id: int, _post_request: PostRequest, _db: orm.Session
     db_post = await _get_post_by_detail(post_id, _db)
 
     return await _update_post(_post_request, db_post, _db)
+
+
+@app.get("/api/v1/users/{user_id}", response_model=UserResponse)
+async def get_user_data(user_id: int, _db: orm.Session = Depends(get_db)):
+    pass
