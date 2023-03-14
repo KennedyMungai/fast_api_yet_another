@@ -215,6 +215,28 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
     return db_post
 
 
+async def get_user_detail(_user_id: int, _db: orm.Session):
+    """The get user detail service
+
+    Args:
+        _user_id (int): The id of the user
+        _db (orm.Session): The database session
+
+    Raises:
+        HTTPException: A not found exception is raised when no user is found
+
+    Returns:
+        _type_: _description_
+    """
+    db_user = _db.query(UserModel).filter(UserModel.id == _user_id).first()
+
+    if not db_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User with id {_user_id} not found")
+
+    return UserResponse.from_orm(db_user)
+
+
 async def delete_post(_post: PostModel, _db: orm.Session):
     """Service for deleting a post
 
