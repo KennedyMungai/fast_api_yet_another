@@ -215,7 +215,7 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
     return db_post
 
 
-async def get_user_detail(_user_id: int, _db: orm.Session):
+async def get_user_details(_user_id: int, _db: orm.Session):
     """The get user detail service
 
     Args:
