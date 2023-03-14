@@ -169,4 +169,4 @@ async def update_post(post_id: int, _post_request: PostRequest, _db: orm.Session
     """
     db_post = await _get_post_by_detail(post_id, _db)
 
-    return await _update_post(post_request, db_post, _db)
+    return await _update_post(_post_request, db_post, _db)
