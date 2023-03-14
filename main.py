@@ -96,8 +96,10 @@ async def create_post(
 
     Args:
         _post_request (PostRequest): The Post data
-        _user (UserRequest, optional): The user creating the post. Defaults to Depends(_current_user).
-        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+        _user (UserRequest, optional): The user creating the 
+                                        post. Defaults to Depends(_current_user).
+        _db (orm.Session, optional): The database session.
+                                        Defaults to Depends(get_db).
 
     Returns:
         _type_: _description_
