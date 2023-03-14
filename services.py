@@ -193,3 +193,17 @@ async def get_posts_by_user(_user: UserResponse, _db: orm.Session) -> list:
     posts = _db.query(PostModel).filter_by(user_id == _user.id)
 
     return list(map(PostResponse.from_orm, posts))
+
+
+async def get_post_detail(_post_id: int, _db: orm.Session):
+    """The function to get the details of a given post
+
+    Args:
+        _post_id (int): The Id of the post in question
+        _db (orm.Session): The database connection
+
+    Returns:
+        _type_: Th actual post details
+    """
+    db_post = _db.query(PostModel).filter(PostModel.id == _post_id).first()
+    return PostResponse.from_orm(db_post)
