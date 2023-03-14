@@ -8,14 +8,15 @@ from schemas import PostRequest, PostResponse, UserRequest, UserResponse
 from services import create_post as _create_post
 from services import create_token, create_user
 from services import current_user as _current_user
+from services import delete_post as _delete_post
 from services import get_db
 from services import get_post_detail as _get_post_by_detail
-from services import get_posts_by_user as _get_posts_by_user
-from services import get_user_by_email, login
-from services import delete_post as _delete_post
-from services import update_post as _update_post
 from services import get_posts_by_all_users as _get_posts_by_all_users
+from services import get_posts_by_user as _get_posts_by_user
+from services import get_user_by_email
 from services import get_user_details as _get_user_details
+from services import login
+from services import update_post as _update_post
 
 app = FastAPI()
 
