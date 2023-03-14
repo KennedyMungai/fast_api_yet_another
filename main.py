@@ -134,8 +134,4 @@ async def get_post_detail(post_id: int, _db: orm.Session = Depends(get_db)):
     """
     post = await _get_post_by_detail(post_id, _db)
 
-    if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Post with id {post_id} not found")
-
     return post

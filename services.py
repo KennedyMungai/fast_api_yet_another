@@ -206,4 +206,9 @@ async def get_post_detail(_post_id: int, _db: orm.Session):
         _type_: Th actual post details
     """
     db_post = _db.query(PostModel).filter(PostModel.id == _post_id).first()
+
+    if not db_post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Post with id {post_id} not found")
+
     return PostResponse.from_orm(db_post)
