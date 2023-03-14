@@ -14,6 +14,7 @@ from services import get_posts_by_user as _get_posts_by_user
 from services import get_user_by_email, login
 from services import delete_post as _delete_post
 from services import update_post as _update_post
+from services import get_posts_by_all_users as _get_posts_by_all_users
 
 app = FastAPI()
 
@@ -116,6 +117,20 @@ async def get_posts_by_user(_user: UserRequest, _db: orm.Session = Depends(get_d
         list: A list of all the posts by a specific user
     """
     return await _get_posts_by_user(_user, _db)
+
+
+@app.get("/api/v1/posts/all", response_model=List[PostResponse])
+async def get_posts_by_all_users(_db: orm.Session = Depends(get_db)) -> list:
+    """The API endpoint to get all the posts by a specific
+
+    Args:
+        _user (UserRequest): The user
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Returns:
+        list: A list of all the posts by a specific user
+    """
+    return await _get_posts_by_all_users(_db)
 
 
 @app.get("/api/posts/{post_id}", response_model=PostResponse)
