@@ -1,7 +1,7 @@
 """The entry point to the program"""
 from fastapi import Depends, FastAPI, HTTPException, status, Security
 from sqlalchemy import orm
-
+from typing import List
 from schemas import UserRequest, UserResponse, PostResponse, PostRequest
 from services import (
     get_db,
@@ -10,7 +10,8 @@ from services import (
     create_token,
     login,
     current_user as _current_user,
-    create_post as _create_post
+    create_post as _create_post,
+    get_posts_by_user as _get_posts_by_user
 )
 
 app = FastAPI()
@@ -100,3 +101,17 @@ async def create_post(
         _type_: _description_
     """
     return await _create_post(_user, _db, _post_request)
+
+
+@app.get("/api/v1/posts/user", response_model=List[PostResponse])
+async def get_posts_by_user(_user: UserRequest, _db: orm.Session = Depends(get_db)) -> list:
+    """The API endpoint to get all the posts by a specific
+
+    Args:
+        _user (UserRequest): The user
+        _db (orm.Session, optional): The database session. Defaults to Depends(get_db).
+
+    Returns:
+        list: A list of all the posts by a specific user
+    """
+    return await _get_posts_by_user(_user, _db)
