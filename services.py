@@ -1,16 +1,16 @@
 """A script meant to contain all the services logic"""
 import os
 
-from jwt import encode, decode
 from dotenv import find_dotenv, load_dotenv
 from email_validator import EmailNotValidError, validate_email
-from fastapi import HTTPException, status, Depends, Security
+from fastapi import Depends, HTTPException, Security, status
+from jwt import decode, encode
 from passlib import hash as _hash
 from sqlalchemy import orm
 
 from database import base, engine, session_local
-from models import UserModel, PostModel
-from schemas import UserResponse, UserRequest, PostRequest, PostResponse
+from models import PostModel, UserModel
+from schemas import PostRequest, PostResponse, UserRequest, UserResponse
 
 load_dotenv(find_dotenv())
 
